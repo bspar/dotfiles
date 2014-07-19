@@ -11,5 +11,7 @@ set hlsearch
 set incsearch
 set undolevels=1000
 set ls=2
+set encoding=utf-8
+set fileencoding=utf-8
 
 cmap w!! w !sudo tee > /dev/null %
