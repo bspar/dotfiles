@@ -2,13 +2,13 @@
 (xbindkey '(control shift f) "terminator")
 
 ; Start browser
-(xbindkey '(control shift j) "chromium")
+(xbindkey '(control shift k) "chromium")
 
 ; Lock screen
 (xbindkey '(control alt l) "xflock4")
 
 ; Open dropbox folder
-(xbindkey '(control shift d) "thunar ~/Dropbox/")
+(xbindkey '(control shift d) "thunar ~/")
 
 ;Open quasselclient
 (xbindkey '(control shift q) "quasselclient")
