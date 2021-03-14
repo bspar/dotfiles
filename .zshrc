@@ -1,7 +1,7 @@
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=100000
+SAVEHIST=100000
 setopt autocd
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
@@ -13,9 +13,9 @@ export EDITOR="vim"
 export USE_CCACHE=1
 # end
 # User specific aliases and functions
-alias ls="ls -a -G"
-alias ll="ls -lh -G"
-alias la="ls -alh -G"
+alias ls="ls -a -G --color"
+alias ll="ls -lah -G --color"
+alias la="ls -alh -G --color"
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
