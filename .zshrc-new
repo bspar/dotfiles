@@ -100,7 +100,7 @@ source ~/dotfiles/.zshrc
 export ANDROID_HOME=$HOME/Android/Sdk
 export ANDROID_HOME_PATH=$HOME/Android/Sdk
 export ANDROID_SDK_PATH=$HOME/Android/Sdk
-export NDK_HOME=$HOME/Documents/nerve-endings/android-ndk-r19c
+export NDK_HOME=$HOME/ndk/android-ndk-r19c
 #export NDK_HOME=$HOME/tmp/ndk/android-ndk-r21d
 export PATH=${PATH}:$ANDROID_HOME_PATH/emulator:$ANDROID_HOME_PATH/tools:$ANDROID_HOME_PATH/platform-tools
 export PATH=$PATH:$NDK_HOME/toolchains/llvm/prebuilt/darwin-x86_64/bin
@@ -116,7 +116,6 @@ export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$ANDROID_HOME_PATH/build-tools/29.0.1
 # export PATH=$PATH:$ANDROID_HOME/ndk-bundle
 #export PATH=$PATH:$HOME/tmp/ndk/android-ndk-r21d
-#export PATH=$PATH:$HOME/Documents/nerve-endings/aosp-scripts/
 
 # rust package manager = cargo
 export PATH=$PATH:$HOME/.cargo/bin
