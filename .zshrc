@@ -191,8 +191,8 @@ export PATH="/Users/bspar/.local/bin:$PATH"
 export K9S_CONFIG_DIR=$HOME/.config/k9s/
 
 
-# opencode
-export PATH=/Users/bspar/.opencode/bin:$PATH
+# opencode2 - installed globally via npm (@opencode-ai/cli@beta), so it lands
+# in the homebrew bin dir; the old ~/.opencode/bin install is gone
 
 # bun completions
 [ -s "/Users/bspar/.bun/_bun" ] && source "/Users/bspar/.bun/_bun"
