@@ -1,0 +1,2 @@
+keybind = ctrl+alt+arrow_left=csi:1;3D
+keybind = ctrl+alt+arrow_right=csi:1;3C

@@ -95,7 +95,41 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-source ~/dotfiles/.zshrc.old
+# --- inlined from the old .zshrc.old ---
+HISTFILE=~/.histfile
+HISTSIZE=100000
+SAVEHIST=100000
+setopt autocd
+
+export VISUAL="/usr/bin/vim -p -X"
+export EDITOR="vim"
+export USE_CCACHE=1
+
+alias ls="ls -a -G --color"
+alias ll="ls -lah -G --color"
+alias la="ls -alh -G --color"
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias mount='mount |column -t'
+
+bindkey -e
+bindkey "[C" emacs-forward-word
+bindkey "[D" emacs-backward-word
+
+# Colored man pages
+man() {
+	env \
+		LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+		LESS_TERMCAP_md=$(printf "\e[1;31m") \
+		LESS_TERMCAP_me=$(printf "\e[0m") \
+		LESS_TERMCAP_se=$(printf "\e[0m") \
+		LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+		LESS_TERMCAP_ue=$(printf "\e[0m") \
+		LESS_TERMCAP_us=$(printf "\e[1;32m") \
+			man "$@"
+}
+# --- end inlined section ---
 
 export ANDROID_HOME=/Users/$USER/Library/Android/sdk
 export ANDROID_SDK=/Users/$USER/Library/Android/sdk
@@ -109,8 +143,10 @@ if [ -f '/Users/bspar/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/bspar/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/bspar/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
-export GOPATH=$HOME/go-workspace # don't forget to change your path correctly!
-export GOROOT=/usr/local/opt/go/libexec
+# replace bsd with GNU tools (e.g. sed)
+export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+export GOPATH=$HOME/go # don't forget to change your path correctly!
+# export GOROOT=/usr/local/opt/go/libexec
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
 export PATH=$PATH:/opt/local/bin
@@ -123,7 +159,7 @@ export PATH=$PATH:~/bin
 androidOld () { hdiutil attach ~/android.dmg.sparseimage -mountpoint /Volumes/android; cd /Volumes/android; bash } 
 android () { hdiutil attach ~/android.dmg.sparseimage -mountpoint /Volumes/android; cd /Users/bspar/Documents/projects/aosptest/docker-aosp; docker-compose up -d --build; docker exec -it docker-aosp_aosp_1 bash }
 
-export PATH="/usr/local/opt/python@3.8/bin:$PATH"
+#export PATH="/usr/local/opt/python@3.8/bin:$PATH"
 
 PATH="/Users/bspar/perl5/bin${PATH:+:${PATH}}"; export PATH;
 PERL5LIB="/Users/bspar/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
@@ -134,3 +170,34 @@ PERL_MM_OPT="INSTALL_BASE=/Users/bspar/perl5"; export PERL_MM_OPT;
 export RUST_BACKTRACE=1
 source ~/.profile
 
+
+
+export JAVA_HOME=$(/usr/libexec/java_home)
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# put uv's python at the front of PATH
+export PATH="/Users/bspar/.local/bin:$PATH"
+
+export K9S_CONFIG_DIR=$HOME/.config/k9s/
+
+
+# opencode
+export PATH=/Users/bspar/.opencode/bin:$PATH
+
+# bun completions
+[ -s "/Users/bspar/.bun/_bun" ] && source "/Users/bspar/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Added by Antigravity
+export PATH="/Users/bspar/.antigravity/antigravity/bin:$PATH"
+
+# private credentials live outside the repo - see .secrets.example
+[ -f ~/.secrets ] && source ~/.secrets
+
+# export TERM=xterm-256color
