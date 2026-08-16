@@ -62,7 +62,8 @@ CASE_SENSITIVE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git pip python brew macos zsh-syntax-highlighting sublime git-flow command-not-found zsh-syntax-highlighting zsh-autosuggestions)
+# NOTE: zsh-syntax-highlighting must stay last - it wraps the ZLE widgets
+plugins=(git pip python brew macos sublime git-flow command-not-found zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -137,11 +138,16 @@ export PATH=${PATH}:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/pla
 export PYTHONSTARTUP="$HOME/.pythonrc"
 
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/bspar/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/bspar/Downloads/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/bspar/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/bspar/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+# Google Cloud SDK - check the homebrew cask location first, then the old
+# hand-unpacked one in ~/Downloads
+for _gcloud in /opt/homebrew/share/google-cloud-sdk "$HOME/Downloads/google-cloud-sdk"; do
+	if [ -d "$_gcloud" ]; then
+		[ -f "$_gcloud/path.zsh.inc" ] && . "$_gcloud/path.zsh.inc"
+		[ -f "$_gcloud/completion.zsh.inc" ] && . "$_gcloud/completion.zsh.inc"
+		break
+	fi
+done
+unset _gcloud
 
 # replace bsd with GNU tools (e.g. sed)
 export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
@@ -168,11 +174,12 @@ PERL_MB_OPT="--install_base \"/Users/bspar/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/Users/bspar/perl5"; export PERL_MM_OPT;
 
 export RUST_BACKTRACE=1
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 source ~/.profile
 
 
 
-export JAVA_HOME=$(/usr/libexec/java_home)
+export JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null)
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
