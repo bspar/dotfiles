@@ -132,9 +132,10 @@ man() {
 }
 # --- end inlined section ---
 
-export ANDROID_HOME=/Users/$USER/Library/Android/sdk
-export ANDROID_SDK=/Users/$USER/Library/Android/sdk
-export PATH=${PATH}:$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export ANDROID_SDK=$ANDROID_HOME
+# $ANDROID_HOME/tools is long gone - it is cmdline-tools/latest/bin now
+export PATH=${PATH}:$ANDROID_HOME/emulator:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools
 export PYTHONSTARTUP="$HOME/.pythonrc"
 
 
@@ -156,9 +157,21 @@ export GOPATH=$HOME/go # don't forget to change your path correctly!
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$GOROOT/bin
 export PATH=$PATH:/opt/local/bin
-export PATH=$PATH:$ANDROID_HOME/build-tools/29.0.1
-# export PATH=$PATH:$ANDROID_HOME/ndk-bundle
-export PATH=$PATH:/Users/bspar/Documents/projects/android-ndk-r19c
+# Pick up the newest installed build-tools and NDK rather than pinning a
+# version that goes stale on every SDK update. Glob qualifiers: (/) dirs only,
+# (N) expand to nothing if there is no match, (n) numeric sort - so [-1] is the
+# highest version.
+() {
+	local -a bt ndk
+	bt=( $ANDROID_HOME/build-tools/*(/Nn) )
+	ndk=( $ANDROID_HOME/ndk/*(/Nn) )
+	(( $#bt ))  && export PATH=$PATH:${bt[-1]}
+	(( $#ndk )) && {
+		export ANDROID_NDK_HOME=${ndk[-1]}
+		export ANDROID_NDK_ROOT=${ndk[-1]}
+		export PATH=$PATH:${ndk[-1]}
+	}
+}
 export PATH=$PATH:/Users/bspar/Library/Python/3.7/bin
 export PATH=$PATH:~/bin
 
